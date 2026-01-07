@@ -12,7 +12,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
   return (
     <div className="h-full bg-white ">
       <aside
-      className={`h-screen bg-white border-r border-gray-200
+      className={`h-screen bg-white
       flex flex-col ${collapsed ? "items-center" : "items-start"} transition-all duration-300
       ${collapsed ? "w-20" : "w-60"}`}
     >

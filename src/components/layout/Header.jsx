@@ -2,7 +2,7 @@ import { Search, ChevronDown, User } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-between h-18 px-4 pt-6 pb-3 border-b border-gray-200 bg-white">
+    <header className="flex items-center justify-between h-18 px-4 pt-6 pb-3  border-l border-b border-gray-200 bg-white">
       {/* Search */}
       <div className="relative">
         <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />

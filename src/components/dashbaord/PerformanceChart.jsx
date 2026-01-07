@@ -37,23 +37,6 @@ const PerformanceChart = () => {
             <p className="text-sm text-gray-400">Last {range}</p>
           </div>
 
-          {/* <div className="relative inline-block">
-            <select
-              value={range}
-              onChange={(e) => {
-                setRange(e.target.value);
-                setActiveIndex(0);
-              }}
-              className="appearance-none border rounded-sm px-2 pr-6 py-1.5  text-sm text-gray-600 cursor-pointer"
-            >
-              <option>Weekly</option>
-              <option>Monthly</option>
-            </select>
-
-            <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-gray-400">
-              <ChevronDown size={18} className="text-indigo-600" />
-            </span>
-          </div> */}
           <RangeSelect
             value={range}
             onChange={(val) => {

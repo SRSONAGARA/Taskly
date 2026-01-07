@@ -1,13 +1,13 @@
-import React from 'react'
-import Layout from './components/layout/Layout'
-import Dashboard from './pages/Dashbaord'
+import React from "react";
+import Layout from "./components/layout/Layout";
+import Dashboard from "./pages/Dashbaord";
 
 const App = () => {
   return (
-   <Layout>
-    <Dashboard/>
-   </Layout>
-  )
-}
+    <Layout>
+      <Dashboard />
+    </Layout>
+  );
+};
 
-export default App
+export default App;

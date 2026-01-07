@@ -6,7 +6,7 @@ const UpcomingTab = () => {
     <div className="space-y-6">
       <h2 className="text-xl font-semibold">Upcoming Work</h2>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-6 pr-2">
         <TaskCard
           title="Brainstorming"
           description="Brainstorming with team on storly app"

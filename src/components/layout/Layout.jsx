@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
       {/* Content */}
       <div className="flex-1">
         <Header onMenuClick={() => setMobileOpen(true)} />
-        <main className="p-2 bg-white min-h-screen">
+        <main className=" bg-white min-h-screen">
           {children}
         </main>
       </div>
