@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { checkBoxStyle, scaleUpStyle } from "../../core/styles";
 
 const RightPanel = () => {
   const today = new Date();
@@ -55,17 +56,28 @@ const RightPanel = () => {
   };
 
   return (
-    <div className="w-90 bg-white  px-4 py-6 space-y-6">
+    <div className="w-90 bg-white  px-4 py-4 space-y-6">
       {/* TOP ICONS */}
-      <div className="flex justify-end gap-6 text-gray-400">
-        <button onClick={() => setActiveTopTab("calendar")}>📅</button>
-        <button onClick={() => setActiveTopTab("notification")}>🔔</button>
-        <button onClick={() => setActiveTopTab("qa")}>💬</button>
+      <div className="flex justify-end gap-2">
+        {[
+          { key: "calendar", icon: "📅" },
+          { key: "notification", icon: "🔔" },
+          { key: "qa", icon: "💬" },
+        ].map(({ key, icon }) => (
+          <button
+            key={key}
+            onClick={() => setActiveTopTab(key)}
+            className={`h-10 w-10 flex items-center justify-center rounded-full transition
+        ${activeTopTab === key ? "bg-indigo-100 text-white shadow-md" : "text-gray-400 hover:bg-gray-100"}`}
+          >
+            {icon}
+          </button>
+        ))}
       </div>
 
       {/* CALENDAR */}
       {activeTopTab === "calendar" && (
-        <div className="bg-gray-50 rounded-xl p-4 space-y-4">
+        <div className={`bg-gray-50 rounded-xl p-4 space-y-4`}>
           {/* Tabs */}
           <div className="flex gap-6 text-sm font-medium">
             {["Monthly", "Daily"].map((tab) => (
@@ -137,11 +149,12 @@ const RightPanel = () => {
           </div>
         </div>
       )}
+
       {/* NOTIFICATIONS */}
       {activeTopTab === "notification" && (
         <div className="space-y-4">
           {/* Notification Card 1 */}
-          <div className="flex items-start gap-3 border rounded-xl p-4">
+          <div className={`flex items-start gap-3 border rounded-xl p-4 ${scaleUpStyle}`}>
             <span className="text-orange-500 text-lg">🔔</span>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-orange-500">Deadline</h4>
@@ -151,7 +164,7 @@ const RightPanel = () => {
           </div>
 
           {/* Notification Card 2 */}
-          <div className="flex items-start gap-3 border rounded-xl p-4">
+          <div className={`flex items-start gap-3 border rounded-xl p-4 ${scaleUpStyle}`}>
             <span className="text-green-500 text-lg">🔔</span>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-green-500">Task Update:</h4>
@@ -161,7 +174,7 @@ const RightPanel = () => {
           </div>
 
           {/* Notification Card 3 */}
-          <div className="flex items-start gap-3 border rounded-xl p-4">
+          <div className={`flex items-start gap-3 border rounded-xl p-4 ${scaleUpStyle}`}>
             <span className="text-indigo-600 text-lg">🔔</span>
             <div className="flex-1">
               <h4 className="text-sm font-semibold text-indigo-600">Exciting News:</h4>
@@ -176,7 +189,7 @@ const RightPanel = () => {
       {activeTopTab === "qa" && (
         <div className="space-y-3">
           {/* QA Item */}
-          <div className="flex gap-3 bg-white border rounded-xl p-4">
+          <div className={`flex gap-3 bg-white border rounded-xl p-4 ${scaleUpStyle}`}>
             {/* Status Indicator */}
             <span className="mt-1 w-2 h-2 bg-green-500 rounded-full" />
 
@@ -195,7 +208,7 @@ const RightPanel = () => {
           </div>
 
           {/* QA Item */}
-          <div className="flex gap-3 bg-white border rounded-xl p-4">
+          <div className={`flex gap-3 bg-white border rounded-xl p-4 ${scaleUpStyle}`}>
             <span className="mt-1 w-2 h-2 bg-yellow-500 rounded-full" />
 
             <div className="flex-1 space-y-2">
@@ -211,7 +224,7 @@ const RightPanel = () => {
           </div>
 
           {/* QA Item */}
-          <div className="flex gap-3 bg-white border rounded-xl p-4">
+          <div className={`flex gap-3 bg-white border rounded-xl p-4 ${scaleUpStyle}`}>
             <span className="mt-1 w-2 h-2 bg-green-500 rounded-full" />
 
             <div className="flex-1 space-y-2">
@@ -234,27 +247,27 @@ const RightPanel = () => {
 
         <ul className="space-y-3 text-sm text-gray-500">
           <li className="flex items-center gap-2">
-            <input type="checkbox" className="accent-indigo-600" />
+            <input type="checkbox" className={checkBoxStyle} />
             Schedule post Dusk&Dawn
           </li>
 
           <li className="flex items-center gap-2">
-            <input type="checkbox" className="accent-indigo-600" />
+            <input type="checkbox" className={checkBoxStyle} />
             Design post for Holi
           </li>
 
           <li className="flex items-center gap-2">
-            <input type="checkbox" className="accent-indigo-600" />
+            <input type="checkbox" className={checkBoxStyle} />
             Brainstorming new project
           </li>
 
           <li className="flex items-center gap-2">
-            <input type="checkbox" className="accent-indigo-600" />
+            <input type="checkbox" className={checkBoxStyle} />
             Re-Branding Discussion
           </li>
 
           <li className="flex items-center gap-2">
-            <input type="checkbox" className="accent-indigo-600" />
+            <input type="checkbox" className={checkBoxStyle} />
             User Research
           </li>
         </ul>

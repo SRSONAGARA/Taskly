@@ -1,3 +1,4 @@
+import { buttonStyle } from "../../core/styles";
 import AddTaskDialog from "./AddTaskDialog";
 import PerformanceChart from "./PerformanceChart";
 import TaskCard from "./TaskCard";
@@ -10,10 +11,7 @@ const UpcomingTab = () => {
     <div className="space-y-6">
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold">Upcoming Work</h2>
-        <button
-          onClick={() => setOpenDialog(true)}
-          className=" bg-indigo-600 text-white text-sm font-medium py-2 px-6 rounded-lg"
-        >
+        <button onClick={() => setOpenDialog(true)} className={buttonStyle}>
           Schedule Task
         </button>
       </div>

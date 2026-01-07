@@ -1,4 +1,5 @@
 import React from "react";
+import { buttonStyle } from "../../core/styles";
 
 const AddTaskDialog = ({ open, onClose, onSubmit }) => {
   if (!open) return null;
@@ -6,20 +7,14 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Overlay */}
-      <div
-        className="absolute inset-0 bg-black/40"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/40" onClick={onClose} />
 
       {/* Dialog */}
       <div className="relative bg-white rounded-xl w-full max-w-md p-6 space-y-5 shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Add New Task</h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             ✕
           </button>
         </div>
@@ -68,35 +63,22 @@ const AddTaskDialog = ({ open, onClose, onSubmit }) => {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-sm font-medium">Date</label>
-              <input
-                type="date"
-                className="mt-1 w-full border rounded-lg px-3 py-2 text-sm"
-              />
+              <input type="date" className="mt-1 w-full border rounded-lg px-3 py-2 text-sm" />
             </div>
 
             <div>
               <label className="text-sm font-medium">Time</label>
-              <input
-                type="time"
-                className="mt-1 w-full border rounded-lg px-3 py-2 text-sm"
-              />
+              <input type="time" className="mt-1 w-full border rounded-lg px-3 py-2 text-sm" />
             </div>
           </div>
 
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700"
-            >
+            <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-500 hover:text-gray-700">
               Cancel
             </button>
 
-            <button
-              type="submit"
-              className="px-4 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-            >
+            <button type="submit" className={buttonStyle}>
               Add Task
             </button>
           </div>

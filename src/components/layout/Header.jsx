@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Search, ChevronDown, User, LogOut } from "lucide-react";
+import { motion } from "framer-motion";
+import { slideLeft } from "../../core/animations";
 
 const Header = ({ onMenuClick }) => {
   const [open, setOpen] = useState(false);
@@ -17,14 +19,13 @@ const Header = ({ onMenuClick }) => {
   }, []);
 
   return (
-    <header className="flex items-center justify-between h-18 px-4 pt-6 pb-3 border-l border-b border-gray-200 bg-white">
-      
+    <motion.div
+      variants={slideLeft}
+      className="flex items-center justify-between h-18 px-4 pt-6 pb-3 border-l border-b border-gray-200 bg-white"
+    >
       {/* Search */}
       <div className="relative">
-        <Search
-          size={16}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-        />
+        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
         <input
           placeholder="Search for anything..."
           className="pl-10 pr-4 py-2 w-120 rounded-md bg-gray-100 text-sm focus:outline-none"
@@ -33,18 +34,15 @@ const Header = ({ onMenuClick }) => {
 
       {/* Profile */}
       <div className="relative" ref={dropdownRef}>
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="flex items-center gap-3"
-        >
+        <button onClick={() => setOpen((v) => !v)} className="flex items-center gap-3 ">
           <div className="bg-gray-100 rounded-full w-10 h-10 flex items-center justify-center">
             <User size={18} className="text-gray-800" />
           </div>
 
-          <span className="font-medium">Sagar Sonagara</span>
+          <span className="font-medium hover:font-semibold hover:text-indigo-600">Sagar Sonagara</span>
           <ChevronDown
             size={18}
-            className={`transition-transform duration-300 ${
+            className={`transition-transform duration-300 hover:font-semibold hover:text-indigo-600 ${
               open ? "rotate-180" : ""
             }`}
           />
@@ -68,7 +66,7 @@ const Header = ({ onMenuClick }) => {
 
           {/* Actions */}
           <button
-            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:rounded-b-xl"
+            className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-indigo-100 hover:rounded-b-xl hover:font-semibold"
             onClick={() => {
               console.log("Logout");
               setOpen(false);
@@ -79,7 +77,7 @@ const Header = ({ onMenuClick }) => {
           </button>
         </div>
       </div>
-    </header>
+    </motion.div>
   );
 };
 

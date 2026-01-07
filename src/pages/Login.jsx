@@ -48,11 +48,14 @@ const Login = () => {
             <label className="text-sm font-medium">Email</label>
             <input
               type="email"
+              placeholder="you@example.com"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
             />
-            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+            {errors.email && (
+              <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+            )}
           </div>
 
           {/* Password */}
@@ -61,9 +64,10 @@ const Login = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                className="mt-1 w-full border rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="mt-1 w-full border rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
               />
               <button
                 type="button"
@@ -73,7 +77,9 @@ const Login = () => {
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
-            {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
+            {errors.password && (
+              <p className="text-xs text-red-500 mt-1">{errors.password}</p>
+            )}
           </div>
 
           {/* Submit */}
@@ -88,7 +94,10 @@ const Login = () => {
         {/* Footer */}
         <p className="text-sm text-center text-gray-500">
           Don’t have an account?{" "}
-          <button onClick={() => navigate("/register")} className="text-indigo-600 font-medium">
+          <button
+            onClick={() => navigate("/register")}
+            className="text-indigo-600 font-medium"
+          >
             Create one
           </button>
         </p>

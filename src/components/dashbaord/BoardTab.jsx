@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TaskCard from "./TaskCard";
 import AddTaskDialog from "./AddTaskDialog";
-
+import { scaleUpStyle } from "../../core/styles";
 
 const BoardTab = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -35,7 +35,9 @@ const BoardTab = () => {
 
           <button
             onClick={() => setOpenDialog(true)}
-            className="w-full border rounded-lg py-2 text-sm text-gray-500 hover:bg-gray-100"
+            className={`w-full border rounded-lg py-2 text-sm text-gray-500
+             transition-colors duration-200
+             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
           >
             + Add Task
           </button>
@@ -56,7 +58,9 @@ const BoardTab = () => {
 
           <button
             onClick={() => setOpenDialog(true)}
-            className="w-full border rounded-lg py-2 text-sm text-gray-500 hover:bg-gray-100"
+            className={`w-full border rounded-lg py-2 text-sm text-gray-500
+             transition-colors duration-200
+             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
           >
             + Add Task
           </button>
@@ -77,7 +81,9 @@ const BoardTab = () => {
 
           <button
             onClick={() => setOpenDialog(true)}
-            className="w-full border border-dashed rounded-lg py-2 text-sm text-gray-500 hover:bg-gray-100"
+            className={`w-full border rounded-lg py-2 text-sm text-gray-500
+             transition-colors duration-200
+             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
           >
             + Add Task
           </button>

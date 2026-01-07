@@ -4,11 +4,13 @@ import TabHeader from "../components/dashbaord/TabHeader";
 import { useState } from "react";
 import UpcomingTab from "../components/dashbaord/UpcomingTab";
 import RightPanel from "../components/dashbaord/RightPanel";
+import {motion} from "framer-motion";
+import { fadeUp } from "../core/animations";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Upcoming");
   return (
-    <div className="flex">
+    <motion.div variants={fadeUp} className="flex">
       <div className="space-y-6 w-full border-x border-gray-200 p-4">
         {/* Progress */}
         <ProgressBar label="Today" value={65} />
@@ -24,7 +26,7 @@ const Dashboard = () => {
 
       {/* //   Right Panel */}
       <RightPanel />
-    </div>
+    </motion.div>
   );
 };
 
