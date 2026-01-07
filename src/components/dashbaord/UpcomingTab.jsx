@@ -10,12 +10,15 @@ const UpcomingTab = () => {
     <div className="space-y-6">
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold">Upcoming Work</h2>
-        <button onClick={() => setOpenDialog(true)} className=" bg-indigo-600 text-white py-2 px-4 rounded-lg">
+        <button
+          onClick={() => setOpenDialog(true)}
+          className=" bg-indigo-600 text-white text-sm font-medium py-2 px-6 rounded-lg"
+        >
           Schedule Task
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 pr-2">
+      <div className="grid grid-cols-2 gap-6">
         <TaskCard
           title="Brainstorming"
           description="Brainstorming with team on storly app"
