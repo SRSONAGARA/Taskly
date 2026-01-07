@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const validate = () => {
     const newErrors = {};
@@ -21,6 +23,7 @@ const Login = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Login data:", form);
+      navigate("/dashboard");
     }
   };
 
@@ -35,9 +38,7 @@ const Login = () => {
         {/* Header */}
         <div className="text-center space-y-1">
           <h2 className="text-2xl font-semibold">Welcome back</h2>
-          <p className="text-sm text-gray-500">
-            Please sign in to your account
-          </p>
+          <p className="text-sm text-gray-500">Please sign in to your account</p>
         </div>
 
         {/* Form */}
@@ -48,14 +49,10 @@ const Login = () => {
             <input
               type="email"
               value={form.email}
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
               className="mt-1 w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
             />
-            {errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-            )}
+            {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
           </div>
 
           {/* Password */}
@@ -65,9 +62,7 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 value={form.password}
-                onChange={(e) =>
-                  setForm({ ...form, password: e.target.value })
-                }
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="mt-1 w-full border rounded-lg px-3 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
               />
               <button
@@ -78,11 +73,7 @@ const Login = () => {
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
-            {errors.password && (
-              <p className="text-xs text-red-500 mt-1">
-                {errors.password}
-              </p>
-            )}
+            {errors.password && <p className="text-xs text-red-500 mt-1">{errors.password}</p>}
           </div>
 
           {/* Submit */}
@@ -97,9 +88,9 @@ const Login = () => {
         {/* Footer */}
         <p className="text-sm text-center text-gray-500">
           Don’t have an account?{" "}
-          <a href="/register" className="text-indigo-600 font-medium">
+          <button onClick={() => navigate("/register")} className="text-indigo-600 font-medium">
             Create one
-          </a>
+          </button>
         </p>
       </motion.div>
     </div>
