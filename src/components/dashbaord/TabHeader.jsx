@@ -8,7 +8,7 @@ const TabHeader = ({ active, onChange }) => {
           <button
             key={tab}
             onClick={() => onChange(tab)}
-            className={`relative pb-3 transition ${
+            className={`relative pb-2 transition ${
               active === tab
                 ? "text-gray-900 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:bg-indigo-600"
                 : "text-gray-400 hover:text-gray-700"

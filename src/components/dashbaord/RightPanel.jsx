@@ -74,7 +74,7 @@ const RightPanel = () => {
                 onClick={() => setCalendarTab(tab)}
                 className={`pb-1 ${
                   calendarTab === tab
-                    ? "text-indigo-600 border-b-2 border-indigo-600"
+                    ? "text-black border-b-2 border-indigo-600"
                     : "text-gray-400 border-b-2 border-transparent"
                 }`}
               >
