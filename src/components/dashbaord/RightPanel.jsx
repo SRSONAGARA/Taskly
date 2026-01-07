@@ -55,7 +55,7 @@ const RightPanel = () => {
   };
 
   return (
-    <div className="w-90 bg-white  px-4 py-4 space-y-6">
+    <div className="w-90 bg-white  px-4 py-6 space-y-6">
       {/* TOP ICONS */}
       <div className="flex justify-end gap-6 text-gray-400">
         <button onClick={() => setActiveTopTab("calendar")}>📅</button>
@@ -258,8 +258,6 @@ const RightPanel = () => {
             User Research
           </li>
         </ul>
-
-        <button className="w-full bg-black text-white py-2 rounded-lg">Schedule Task</button>
       </div>
     </div>
   );

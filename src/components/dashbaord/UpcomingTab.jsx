@@ -1,10 +1,19 @@
+import AddTaskDialog from "./AddTaskDialog";
 import PerformanceChart from "./PerformanceChart";
 import TaskCard from "./TaskCard";
+import React, { useState } from "react";
 
 const UpcomingTab = () => {
+  const [openDialog, setOpenDialog] = useState(false);
+
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Upcoming Work</h2>
+      <div className="flex justify-between">
+        <h2 className="text-xl font-semibold">Upcoming Work</h2>
+        <button onClick={() => setOpenDialog(true)} className=" bg-indigo-600 text-white py-2 px-4 rounded-lg">
+          Schedule Task
+        </button>
+      </div>
 
       <div className="grid grid-cols-2 gap-6 pr-2">
         <TaskCard
@@ -26,7 +35,14 @@ const UpcomingTab = () => {
         />
       </div>
 
-      <PerformanceChart/>
+      <PerformanceChart />
+
+      {/* ADD TASK MODAL */}
+      <AddTaskDialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onSubmit={() => console.log("Task added")}
+      />
     </div>
   );
 };

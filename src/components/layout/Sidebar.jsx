@@ -37,7 +37,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-2 py-8 w-full space-y-2 text-sm">
+      <nav className="flex-1 px-2 pt-4 w-full space-y-2 text-sm">
         {menu.map((item) => {
           const Icon = item.icon;
           return (
