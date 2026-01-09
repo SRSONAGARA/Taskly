@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { Search, ChevronDown, User, LogOut } from "lucide-react";
 import { motion } from "framer-motion";
-import { slideLeft } from "../../core/animations";
+import { slideLeft } from "../../utils/animations";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ onMenuClick }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login", { replace: true });
+  };
 
   // Close on outside click
   useEffect(() => {
@@ -68,7 +76,7 @@ const Header = ({ onMenuClick }) => {
           <button
             className="w-full flex items-center gap-3 px-4 py-3 text-sm text-gray-600 hover:bg-indigo-100 hover:rounded-b-xl hover:font-semibold"
             onClick={() => {
-              console.log("Logout");
+              logout();
               setOpen(false);
             }}
           >

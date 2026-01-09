@@ -4,8 +4,9 @@ import TabHeader from "../components/dashbaord/TabHeader";
 import { useState } from "react";
 import UpcomingTab from "../components/dashbaord/UpcomingTab";
 import RightPanel from "../components/dashbaord/RightPanel";
-import {motion} from "framer-motion";
-import { fadeUp } from "../core/animations";
+import { motion } from "framer-motion";
+import { fadeUp } from "../utils/animations";
+import OverdueTasksTab from "../components/dashbaord/OverdueTasksTab";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Upcoming");
@@ -19,8 +20,9 @@ const Dashboard = () => {
         <TabHeader active={activeTab} onChange={setActiveTab} />
 
         {/* Tab Content */}
-        {activeTab === "Board" && <BoardTab />}
         {activeTab === "Upcoming" && <UpcomingTab />}
+        {activeTab === "Board" && <BoardTab />}
+        {activeTab === "Overdue Tasks" && <OverdueTasksTab />}
         {activeTab === "Notes" && <div>Notes content</div>}
       </div>
 

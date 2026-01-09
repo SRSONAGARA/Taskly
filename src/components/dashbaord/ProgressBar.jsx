@@ -1,4 +1,4 @@
-import { scaleUpStyle } from "../../core/styles";
+import { scaleUpStyle } from "../../utils/styles";
 
 const ProgressBar = ({ label = "Today", value = 65 }) => {
   return (

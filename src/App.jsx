@@ -3,27 +3,55 @@ import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/Dashbaord";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import PrivateRoute from "./routes/PrivateRoute";
+import PublicRoute from "./routes/PublicRoute";
+import { isAuthenticated } from "./utils/auth";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Auth Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
-        {/* Dashboard Routes */}
+        {/* Public Routes */}
         <Route
-          path="/dashboard"
+          path="/login"
           element={
-            <Layout>
-              <Dashboard />
-            </Layout>
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
           }
         />
 
-        {/* Default Redirect */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Dashboard />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        {/* Default */}
+        <Route
+          path="*"
+          element={
+            isAuthenticated() ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

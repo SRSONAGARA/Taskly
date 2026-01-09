@@ -1,7 +1,7 @@
 import { LayoutGrid, CheckSquare, BarChart3, Users, Settings, HelpCircle, ChevronsLeft } from "lucide-react";
-import { pageContainer, slideLeft } from "../../core/animations";
+import { pageContainer, slideLeft } from "../../utils/animations";
 import { motion } from "framer-motion";
-import { buttonStyle } from "../../core/styles";
+import { buttonStyle } from "../../utils/styles";
 
 const Sidebar = ({ collapsed, setCollapsed }) => {
   const menu = [

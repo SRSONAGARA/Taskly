@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { checkBoxStyle, scaleUpStyle } from "../../core/styles";
+import { checkBoxStyle, scaleUpStyle } from "../../utils/styles";
 
 const RightPanel = () => {
   const today = new Date();

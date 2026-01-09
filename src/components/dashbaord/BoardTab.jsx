@@ -1,10 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
 import AddTaskDialog from "./AddTaskDialog";
-import { scaleUpStyle } from "../../core/styles";
+import { scaleUpStyle } from "../../utils/styles";
+import api from "../../api/axios";
+import { getTimeLeft } from "../../utils/time";
 
 const BoardTab = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [dialogStatus, setDialogStatus] = useState("pending");
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // ---------------- FETCH TASKS ----------------
+  const fetchTasks = async () => {
+    try {
+      setLoading(true);
+      const res = await api.get("/tasks");
+      setTasks(res.data);
+    } catch (err) {
+      setError("Failed to load tasks");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  // ---------------- GROUP TASKS ----------------
+
+  const onProgressTasks = tasks.filter((t) => t.status === "ongoing");
+  const pendingTasks = tasks.filter((t) => t.status === "pending");
+  const completedTasks = tasks.filter((t) => t.status === "completed");
+
+  // ---------------- RENDER COLUMN ----------------
+  const renderTasks = (list, emptyText) => {
+    if (loading) return <p className="text-xs text-gray-400">Loading...</p>;
+    if (error) return <p className="text-xs text-red-500">{error}</p>;
+    if (list.length === 0) return <p className="text-xs text-gray-400">{emptyText}</p>;
+
+    return list.map((task) => (
+      <TaskCard
+        key={task._id}
+        title={task.title}
+        description={task.desc}
+        date={task.date}
+        time={task.time}
+        priority={task.priority}
+        timeLeft={task.status === "completed" ? "Completed" : getTimeLeft(task.date, task.time)}
+      />
+    ));
+  };
 
   return (
     <div>
@@ -15,52 +63,33 @@ const BoardTab = () => {
         <div className="bg-gray-50 rounded-xl p-4 space-y-4">
           <h3 className="font-semibold text-sm">● On Progress</h3>
 
-          <TaskCard
-            title="User Research"
-            description="Discussion on re-branding of demo Brand"
-            timeLeft="Ongoing"
-            date="23 Mar 2024"
-            time="—"
-            priority="Medium"
-          />
-
-          <TaskCard
-            title="Change copies"
-            description="Change copies of website"
-            timeLeft="Ongoing"
-            date="23 Mar 2024"
-            time="—"
-            priority="Low"
-          />
+          {renderTasks(onProgressTasks, "No tasks in progress")}
 
           <button
-            onClick={() => setOpenDialog(true)}
+            onClick={() => {
+              setDialogStatus("ongoing");
+              setOpenDialog(true);
+            }}
             className={`w-full border rounded-lg py-2 text-sm text-gray-500
-             transition-colors duration-200
-             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
+              hover:bg-gray-100 hover:text-gray-900 hover:font-semibold ${scaleUpStyle}`}
           >
             + Add Task
           </button>
         </div>
 
         {/* PENDING */}
-        <div className="bg-gray-50 rounded-xl p-4 space-y-4 ">
+        <div className="bg-gray-50 rounded-xl p-4 space-y-4">
           <h3 className="font-semibold text-sm">● Pending</h3>
 
-          <TaskCard
-            title="Re-branding Discussion"
-            description="Discussion on re-branding of demo Brand"
-            timeLeft="58 Min Left"
-            date="23 Mar 2024"
-            time="1:30 pm"
-            priority="Medium"
-          />
+          {renderTasks(pendingTasks, "No pending tasks")}
 
           <button
-            onClick={() => setOpenDialog(true)}
+            onClick={() => {
+              setDialogStatus("pending");
+              setOpenDialog(true);
+            }}
             className={`w-full border rounded-lg py-2 text-sm text-gray-500
-             transition-colors duration-200
-             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
+              hover:bg-gray-100 hover:text-gray-900 hover:font-semibold ${scaleUpStyle}`}
           >
             + Add Task
           </button>
@@ -70,20 +99,15 @@ const BoardTab = () => {
         <div className="bg-gray-50 rounded-xl p-4 space-y-4">
           <h3 className="font-semibold text-sm text-green-600">● Completed</h3>
 
-          <TaskCard
-            title="Schedule Post"
-            description="Schedule instagram post of dusk & dawn"
-            timeLeft="Completed"
-            date="—"
-            time="Done"
-            priority="Medium"
-          />
+          {renderTasks(completedTasks, "No completed tasks")}
 
           <button
-            onClick={() => setOpenDialog(true)}
+            onClick={() => {
+              setDialogStatus("completed");
+              setOpenDialog(true);
+            }}
             className={`w-full border rounded-lg py-2 text-sm text-gray-500
-             transition-colors duration-200
-             hover:bg-gray-100 hover:text-gray-900 hover:font-bold ${scaleUpStyle}`}
+              hover:bg-gray-100 hover:text-gray-900 hover:font-semibold ${scaleUpStyle}`}
           >
             + Add Task
           </button>
@@ -93,8 +117,12 @@ const BoardTab = () => {
       {/* ADD TASK MODAL */}
       <AddTaskDialog
         open={openDialog}
+        defaultStatus={dialogStatus}
         onClose={() => setOpenDialog(false)}
-        onSubmit={() => console.log("Task added")}
+        onSubmit={() => {
+          setOpenDialog(false);
+          fetchTasks(); // 🔥 refresh board
+        }}
       />
     </div>
   );

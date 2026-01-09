@@ -1,5 +1,5 @@
 const TabHeader = ({ active, onChange }) => {
-  const tabs = ["Upcoming", "Board", "Notes"];
+  const tabs = ["Upcoming", "Board", "Overdue Tasks", "Notes"];
 
   return (
     <div className="flex items-center justify-between pb-2 border-b border-gray-200">

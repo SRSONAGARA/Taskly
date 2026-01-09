@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { motion } from "framer-motion";
-import { pageContainer, slideLeft, fadeIn } from "../../core/animations";
+import { pageContainer, slideLeft, fadeIn } from "../../utils/animations";
 
 const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
