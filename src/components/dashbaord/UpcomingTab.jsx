@@ -10,11 +10,15 @@ import { fetchTasks, updateTaskStatus } from "../../store/tasks/tasksThunks";
 
 const UpcomingTab = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
 
   const dispatch = useDispatch();
   const { items: tasks, loading, error } = useSelector((state) => state.tasks);
 
-  const pendingTasks = tasks.filter((task) => task.status === "pending" && isWithinNext24Hours(task.date, task.time));
+  const pendingTasks = tasks.filter(
+    (task) => task.status === "pending"
+    // && isWithinNext24Hours(task.date, task.time)
+  );
 
   return (
     <div className="space-y-6">
@@ -49,6 +53,10 @@ const UpcomingTab = () => {
                 priority={task.priority}
                 status={task.status}
                 timeLeft={getTimeLeft(task.date, task.time)}
+                onEdit={() => {
+                  setEditingTask(task);
+                  setOpenDialog(true);
+                }}
                 onStart={() =>
                   dispatch(
                     updateTaskStatus({
@@ -69,10 +77,15 @@ const UpcomingTab = () => {
       <AddTaskDialog
         open={openDialog}
         defaultStatus="pending"
-        onClose={() => setOpenDialog(false)}
+        taskToEdit={editingTask}
+        onClose={() => {
+          setOpenDialog(false);
+          setEditingTask(null);
+        }}
         onSubmit={() => {
           setOpenDialog(false);
-          dispatch(fetchTasks()); // ✅ redux refresh
+          setEditingTask(null);
+          dispatch(fetchTasks());
         }}
       />
     </div>

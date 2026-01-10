@@ -10,6 +10,7 @@ import { fetchTasks, updateTaskStatus } from "../../store/tasks/tasksThunks";
 const BoardTab = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogStatus, setDialogStatus] = useState("pending");
+  const [editingTask, setEditingTask] = useState(null);
 
   const dispatch = useDispatch();
   const { items: tasks, loading, error } = useSelector((state) => state.tasks);
@@ -36,6 +37,11 @@ const BoardTab = () => {
         time={task.time}
         priority={task.priority}
         timeLeft={task.status === "completed" ? "Completed" : getTimeLeft(task.date, task.time)}
+        onEdit={() => {
+          setEditingTask(task);
+          setDialogStatus(task.status);
+          setOpenDialog(true);
+        }}
         onStart={() => dispatch(updateTaskStatus({ taskId: task._id, status: "ongoing" }))}
         onComplete={() => dispatch(updateTaskStatus({ taskId: task._id, status: "completed" }))}
       />
@@ -106,10 +112,14 @@ const BoardTab = () => {
       <AddTaskDialog
         open={openDialog}
         defaultStatus={dialogStatus}
-        onClose={() => setOpenDialog(false)}
-        onSubmit={() => {
+        taskToEdit={editingTask}
+        onClose={() => {
           setOpenDialog(false);
-          dispatch(fetchTasks()); // ✅ redux refresh
+          setEditingTask(null);
+        }}
+        onSubmit={() => {
+          dispatch(fetchTasks());
+          setEditingTask(null);
         }}
       />
     </div>

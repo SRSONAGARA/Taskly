@@ -78,15 +78,18 @@ const TaskCard = ({
           {/* Dropdown */}
           {menuOpen && (
             <div className="absolute right-0 mt-2 w-28 bg-white border rounded-lg shadow-lg z-10">
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  onEdit?.();
-                }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 rounded-t-lg"
-              >
-                ✏️ Edit
-              </button>
+              {status !== "completed" && (
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onEdit?.();
+                  }}
+                  className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 rounded-t-lg"
+                >
+                  ✏️ Edit
+                </button>
+              )}
+
               <button
                 onClick={() => {
                   setMenuOpen(false);
@@ -128,7 +131,7 @@ const TaskCard = ({
           className="text-xs px-3 py-1 rounded-full
                   bg-indigo-600 text-white
                   hover:bg-indigo-700 transition"
-                    >
+        >
           ▶ Start Task
         </button>
       )}
@@ -139,7 +142,7 @@ const TaskCard = ({
           className="text-xs px-3 py-1 rounded-full
                   bg-green-600 text-white
                   hover:bg-green-700 transition"
-                    >
+        >
           ✅ Complete Task
         </button>
       )}
