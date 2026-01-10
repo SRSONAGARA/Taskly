@@ -36,3 +36,22 @@ export const formatTimeToAMPM = (time) => {
   return `${hours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
 };
 
+export const isWithinNext24Hours = (date, time) => {
+  if (!date || !time) return false;
+
+  const now = new Date();
+
+  // Parse time
+  const [timePart, modifier] = time.split(" ");
+  let [hours, minutes] = timePart.split(":").map(Number);
+
+  if (modifier === "PM" && hours !== 12) hours += 12;
+  if (modifier === "AM" && hours === 12) hours = 0;
+
+  const taskDate = new Date(date);
+  taskDate.setHours(hours, minutes, 0, 0);
+
+  const diff = taskDate - now;
+
+  return diff > 0 && diff <= 24 * 60 * 60 * 1000;
+};

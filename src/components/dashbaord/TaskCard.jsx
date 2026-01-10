@@ -22,17 +22,20 @@ const priorityConfig = {
 };
 
 const TaskCard = ({
+  _id,
   title,
   description,
+  status,
   timeLeft,
   priority = "medium",
   date,
   time,
   onEdit,
   onDelete,
+  onStart,
+  onComplete,
 }) => {
-  const priorityStyle =
-    priorityConfig[priority.toLowerCase()] || priorityConfig.medium;
+  const priorityStyle = priorityConfig[priority.toLowerCase()] || priorityConfig.medium;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -61,9 +64,7 @@ const TaskCard = ({
     >
       {/* Top row */}
       <div className="flex items-center justify-between relative">
-        <span className="flex items-center gap-1 text-xs bg-black text-white px-2 py-1 rounded-md">
-          ⏱ {timeLeft}
-        </span>
+        <span className="flex items-center gap-1 text-xs bg-black text-white px-2 py-1 rounded-md">⏱ {timeLeft}</span>
 
         {/* Menu trigger */}
         <div className="relative" ref={menuRef}>
@@ -118,13 +119,30 @@ const TaskCard = ({
 
       {/* Footer */}
       <div className="flex items-center gap-2 text-[10px] text-gray-500">
-        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full">
-          📅 {date}
-        </div>
-        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full">
-          ⏰ {time}
-        </div>
+        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full">📅 {date}</div>
+        <div className="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-full">⏰ {time}</div>
       </div>
+      {status === "pending" && (
+        <button
+          onClick={onStart}
+          className="text-xs px-3 py-1 rounded-full
+                  bg-indigo-600 text-white
+                  hover:bg-indigo-700 transition"
+                    >
+          ▶ Start Task
+        </button>
+      )}
+
+      {status === "ongoing" && (
+        <button
+          onClick={onComplete}
+          className="text-xs px-3 py-1 rounded-full
+                  bg-green-600 text-white
+                  hover:bg-green-700 transition"
+                    >
+          ✅ Complete Task
+        </button>
+      )}
     </div>
   );
 };
