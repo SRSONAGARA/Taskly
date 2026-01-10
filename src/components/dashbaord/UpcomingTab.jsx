@@ -2,50 +2,46 @@ import { buttonStyle } from "../../utils/styles";
 import AddTaskDialog from "./AddTaskDialog";
 import PerformanceChart from "./PerformanceChart";
 import TaskCard from "./TaskCard";
-import React, { useEffect, useState } from "react";
-import api from "../../api/axios";
 import { getTimeLeft } from "../../utils/time";
+
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTasks } from "../../store/tasks/tasksThunks";
 
 const UpcomingTab = () => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  // ---------------- FETCH TASKS ----------------
-  const fetchTasks = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/tasks");
-      setTasks(res.data);
-    } catch (err) {
-      setError("Failed to load tasks");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const dispatch = useDispatch();
+  const { items: tasks, loading, error } = useSelector(
+    (state) => state.tasks
+  );
 
-  // Fetch on mount
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-  const pendingTasks = tasks.filter((task) => task.status === "pending");
+  const pendingTasks = tasks.filter(
+    (task) => task.status === "pending"
+  );
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold">Upcoming Work</h2>
-        <button onClick={() => setOpenDialog(true)} className={buttonStyle}>
+        <button
+          onClick={() => setOpenDialog(true)}
+          className={buttonStyle}
+        >
           Schedule Task
         </button>
       </div>
 
       {/* Loading */}
-      {loading && <p className="text-sm text-gray-500">Loading tasks...</p>}
+      {loading && (
+        <p className="text-sm text-gray-500">Loading tasks...</p>
+      )}
 
       {/* Error */}
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-500">{error}</p>
+      )}
 
       {/* Tasks */}
       {!loading && !error && (
@@ -78,7 +74,7 @@ const UpcomingTab = () => {
         onClose={() => setOpenDialog(false)}
         onSubmit={() => {
           setOpenDialog(false);
-          fetchTasks(); // refresh list after add
+          dispatch(fetchTasks()); // ✅ redux refresh
         }}
       />
     </div>
