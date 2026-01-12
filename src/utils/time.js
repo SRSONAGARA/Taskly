@@ -1,5 +1,48 @@
+// export const getTimeLeft = (date, time) => {
+//   if (!date || !time) return "";
+
+//   // Convert "10:30 AM" → 24h format
+//   const [timePart, modifier] = time.split(" ");
+//   let [hours, minutes] = timePart.split(":").map(Number);
+
+//   if (modifier === "PM" && hours !== 12) hours += 12;
+//   if (modifier === "AM" && hours === 12) hours = 0;
+
+//   const targetDate = new Date(date);
+//   targetDate.setHours(hours, minutes, 0, 0);
+
+//   const now = new Date();
+//   const diff = targetDate - now;
+
+//   if (diff <= 0) return "Expired";
+
+//   const diffMinutes = Math.floor(diff / (1000 * 60));
+//   const diffHours = Math.floor(diff / (1000 * 60 * 60));
+//   const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+//   if (diffMinutes < 60) return `${diffMinutes} Min Left`;
+//   if (diffHours < 24) return `${diffHours} Hrs Left`;
+//   return `${diffDays} Days Left`;
+// };
 export const getTimeLeft = (date, time) => {
   if (!date || !time) return "";
+
+  const now = new Date();
+
+  // Normalize today (00:00)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Normalize task date (00:00)
+  const taskDateOnly = new Date(date);
+  taskDateOnly.setHours(0, 0, 0, 0);
+
+  // ✅ If date is gone, backend will mark overdue
+  if (taskDateOnly < today) {
+    return "Overdue";
+  }
+
+  // ---- TIME LEFT (ONLY FOR TODAY OR FUTURE) ----
 
   // Convert "10:30 AM" → 24h format
   const [timePart, modifier] = time.split(" ");
@@ -11,10 +54,9 @@ export const getTimeLeft = (date, time) => {
   const targetDate = new Date(date);
   targetDate.setHours(hours, minutes, 0, 0);
 
-  const now = new Date();
   const diff = targetDate - now;
 
-  if (diff <= 0) return "Expired";
+  if (diff <= 0) return "Due Today";
 
   const diffMinutes = Math.floor(diff / (1000 * 60));
   const diffHours = Math.floor(diff / (1000 * 60 * 60));
